@@ -7,6 +7,7 @@ import me.marin.lockout.lockout.Goal;
 import me.marin.lockout.lockout.interfaces.HasTooltipInfo;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Pair;
+import net.minecraft.util.math.ColorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +51,7 @@ public class Utility {
         int x = boardLeftEdgeX;
         int y = 0;
 
-        context.drawGuiTexture(RenderLayer::getGuiTextured, Constants.GUI_IDENTIFIER, x, y, boardWidth, boardHeight);
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Constants.GUI_IDENTIFIER, x, y, boardWidth, boardHeight);
 
         x += GUI_PADDING + 1;
         y += GUI_PADDING + 1;
@@ -76,16 +80,16 @@ public class Utility {
             pointsList.add(team.getColor() + "" + team.getPoints() + Formatting.RESET);
         }
 
-        context.drawText(textRenderer, String.join(Formatting.RESET + "" + Formatting.GRAY + "-", pointsList), x, y, 0, true);
+        context.drawTextWithShadow(textRenderer, String.join("-", pointsList), x, y, Colors.GRAY);
 
         String timer = Utility.ticksToTimer(lockout.getTicks());
-        context.drawText(textRenderer, Formatting.WHITE + timer, boardRightEdgeX - textRenderer.getWidth(timer) - 4, y, 0, true);
+        context.drawTextWithShadow(textRenderer, timer, boardRightEdgeX - textRenderer.getWidth(timer) - 4, y, Colors.WHITE);
 
-        List<String> formattedNames = new ArrayList<>();
+        List<Pair<String, Integer>> formattedNames = new ArrayList<>();
         int maxWidth = 0;
         for (LockoutTeam team : lockout.getTeams()) {
             for (String playerName : team.getPlayerNames()) {
-                formattedNames.add(team.getColor() + playerName);
+                formattedNames.add(new Pair<>(playerName, ColorHelper.fullAlpha(team.getColor().getColorValue())));
                 maxWidth = Math.max(maxWidth, textRenderer.getWidth(playerName));
             }
         }
@@ -95,16 +99,16 @@ public class Utility {
             case RIGHT -> {
                 context.fill(context.getScaledWindowWidth() - maxWidth - 3 - 1,  y - 2, context.getScaledWindowWidth() - 1, y + formattedNames.size() * textRenderer.fontHeight + 1, 0x80_00_00_00);
 
-                for (String formattedName : formattedNames) {
-                    context.drawText(textRenderer, formattedName, context.getScaledWindowWidth() - textRenderer.getWidth(formattedName) - 2, y, 0, true);
+                for (var formattedName : formattedNames) {
+                    context.drawTextWithShadow(textRenderer, formattedName.getLeft(), context.getScaledWindowWidth() - textRenderer.getWidth(formattedName.getLeft()) - 2, y, formattedName.getRight());
                     y += textRenderer.fontHeight;
                 }
             }
             case LEFT -> {
                 context.fill(1,  y - 2, 4 + maxWidth, y + formattedNames.size() * textRenderer.fontHeight + 1, 0x80_00_00_00);
 
-                for (String formattedName : formattedNames) {
-                    context.drawText(textRenderer, formattedName, 3, y, 0, true);
+                for (var formattedName : formattedNames) {
+                    context.drawTextWithShadow(textRenderer, formattedName.getLeft(), 3, y, formattedName.getRight());
                     y += textRenderer.fontHeight;
                 }
             }
@@ -124,7 +128,7 @@ public class Utility {
         int boardHeight = 2 * GUI_CENTER_PADDING + board.size() * GUI_CENTER_SLOT_SIZE;
         int y = height / 2 - boardHeight / 2;
 
-        context.drawGuiTexture(RenderLayer::getGuiTextured, GUI_CENTER_IDENTIFIER, x, y, boardWidth, boardHeight);
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, GUI_CENTER_IDENTIFIER, x, y, boardWidth, boardHeight);
 
         x += GUI_CENTER_PADDING + 1;
         y += GUI_CENTER_PADDING + 1;
@@ -143,7 +147,7 @@ public class Utility {
                     goal.render(context, textRenderer, x, y);
 
                     if (goal == hoveredGoal) {
-                        context.fill(x, y, x + 16, y + 16, 400, GUI_CENTER_HOVERED_COLOR);
+                        context.fill(x, y, x + 16, y + 16, GUI_CENTER_HOVERED_COLOR);
                     }
                 }
                 x += GUI_CENTER_SLOT_SIZE;
@@ -196,10 +200,7 @@ public class Utility {
      */
     public static void drawStackCount(DrawContext context, int x, int y, String count) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        context.getMatrices().push();
-        context.getMatrices().translate(0.0F, 0.0F, 200.0F);
         context.drawText(textRenderer, count, x + 19 - 2 - textRenderer.getWidth(count), y + 6 + 3, -1, true);
-        context.getMatrices().pop();
     }
 
     public static List<ServerPlayerEntity> getSpectators(Lockout lockout, MinecraftServer server) {

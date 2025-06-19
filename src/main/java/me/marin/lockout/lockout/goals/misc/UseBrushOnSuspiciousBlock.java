@@ -3,6 +3,7 @@ package me.marin.lockout.lockout.goals.misc;
 import me.marin.lockout.Constants;
 import me.marin.lockout.lockout.Goal;
 import me.marin.lockout.lockout.texture.CustomTextureRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class UseBrushOnSuspiciousBlock extends Goal implements CustomTextureRend
     public boolean renderTexture(DrawContext context, int x, int y, int tick) {
         int mod = tick % (60 * SUSPICIOUS_BLOCKS.size());
         context.drawItem(SUSPICIOUS_BLOCKS.get(mod / 60), x, y);
-        context.drawTexture(RenderLayer::getGuiTexturedOverlay, TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
         return true;
     }
 

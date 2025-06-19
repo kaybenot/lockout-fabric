@@ -15,7 +15,7 @@ import static me.marin.lockout.Constants.GUI_SLOT_SIZE;
 public abstract class InGameHudMixin {
 
     // If lockout board is visible, render effects to the left of it.
-    @ModifyArg(method="renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
+    @ModifyArg(method="renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
     private int renderStatusEffectOverlay_drawGuiTexture(int width) {
         if (!Lockout.exists(LockoutClient.lockout)) {
             return width;
@@ -27,19 +27,4 @@ public abstract class InGameHudMixin {
 
         return width - 2 * GUI_PADDING - LockoutClient.lockout.getBoard().size() * GUI_SLOT_SIZE;
     }
-    @ModifyArg(method="method_18620", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawSpriteStretched(Ljava/util/function/Function;Lnet/minecraft/client/texture/Sprite;IIIII)V"), index = 2)
-    private static int renderStatusEffectOverlay_drawSpriteStretched(int width) {
-        if (!Lockout.exists(LockoutClient.lockout)) {
-            return width;
-        }
-
-        if (LockoutConfig.getInstance().boardPosition != LockoutConfig.BoardPosition.RIGHT) {
-            return width;
-        }
-
-        return width - 2 * GUI_PADDING - LockoutClient.lockout.getBoard().size() * GUI_SLOT_SIZE;
-    }
-
-
-
 }

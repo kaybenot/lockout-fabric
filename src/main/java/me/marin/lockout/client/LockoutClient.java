@@ -5,8 +5,6 @@ import me.marin.lockout.client.gui.*;
 import me.marin.lockout.json.JSONBoard;
 import me.marin.lockout.lockout.Goal;
 import me.marin.lockout.lockout.goals.util.GoalDataConstants;
-import me.marin.lockout.mixin.client.InGameHudAccessor;
-import me.marin.lockout.mixin.client.LayeredDrawerAccessor;
 import me.marin.lockout.network.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
@@ -15,6 +13,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -57,18 +57,17 @@ public class LockoutClient implements ClientModInitializer {
     public void onInitializeClient() {
         Registry.register(Registries.SCREEN_HANDLER, Constants.BOARD_SCREEN_ID, BOARD_SCREEN_HANDLER);
 
+        // Render board above effects (vignette, nausea etc.), but below subtitles, player list, chat etc.
         MinecraftClient.getInstance().send(() -> {
-            // Render board above effects (vignette, nausea etc.), but below subtitles, player list, chat etc.
-            ((LayeredDrawerAccessor) ((InGameHudAccessor) MinecraftClient.getInstance().inGameHud).getLayeredDrawer()).getLayers().add(
-                    2, (context, tickCounter) -> {
-                        // Show lockout screen
-                        if (!Lockout.exists(LockoutClient.lockout)) {
-                            return;
-                        }
+            HudElementRegistry.attachElementAfter(VanillaHudElements.MISC_OVERLAYS, Constants.GUI_IDENTIFIER, ((context, tickCounter) -> {
 
-                        Utility.drawBingoBoard(context);
-                    }
-            );
+                // Show lockout screen
+                if (!Lockout.exists(LockoutClient.lockout)) {
+                    return;
+                }
+
+                Utility.drawBingoBoard(context);
+            }));
         });
 
         ClientPlayNetworking.registerGlobalReceiver(LockoutGoalsTeamsPayload.ID, (payload, context) -> {
@@ -235,7 +234,8 @@ public class LockoutClient implements ClientModInitializer {
                     if (MinecraftClient.getInstance().isInSingleplayer()) {
                         return true;
                     }
-                    return ccs.hasPermissionLevel(2);
+
+                    return ccs.getPlayer().hasPermissionLevel(2);
                 }).build();
 
                 var boardNameNode = ClientCommandManager.argument("board name", CustomBoardFileArgumentType.newInstance()).executes((context) -> {
