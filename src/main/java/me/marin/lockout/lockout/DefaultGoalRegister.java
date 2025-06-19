@@ -30,6 +30,7 @@ import me.marin.lockout.lockout.goals.mine.*;
 import me.marin.lockout.lockout.goals.misc.*;
 import me.marin.lockout.lockout.goals.obtain.*;
 import me.marin.lockout.lockout.goals.opponent.*;
+import me.marin.lockout.lockout.goals.ride.RideHappyGhastGoal;
 import me.marin.lockout.lockout.goals.ride.RideHorseGoal;
 import me.marin.lockout.lockout.goals.ride.RideMinecartGoal;
 import me.marin.lockout.lockout.goals.ride.RidePigGoal;
@@ -305,6 +306,7 @@ public class DefaultGoalRegister {
         INSTANCE.register(GoalType.RIDE_HORSE, RideHorseGoal.class);
         INSTANCE.register(GoalType.RIDE_MINECART, RideMinecartGoal.class);
         INSTANCE.register(GoalType.RIDE_PIG, RidePigGoal.class);
+        INSTANCE.register(GoalType.RIDE_HAPPY_GHAST, RideHappyGhastGoal.class);
         INSTANCE.register(GoalType.USE_STONECUTTER, UseStonecutterGoal.class);
         INSTANCE.register(GoalType.USE_ANVIL, UseAnvilGoal.class);
         INSTANCE.register(GoalType.USE_ENCHANTING_TABLE, UseEnchantingTableGoal.class);
