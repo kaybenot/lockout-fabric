@@ -8,6 +8,7 @@ import me.marin.lockout.lockout.goals.advancement.unique.Get10UniqueAdvancements
 import me.marin.lockout.lockout.goals.advancement.unique.Get20UniqueAdvancementsGoal;
 import me.marin.lockout.lockout.goals.advancement.unique.Get30UniqueAdvancementsGoal;
 import me.marin.lockout.lockout.goals.biome.VisitBadlandsBiomeGoal;
+import me.marin.lockout.lockout.goals.biome.VisitCherryGroveBiomeGoal;
 import me.marin.lockout.lockout.goals.biome.VisitIceSpikesBiomeGoal;
 import me.marin.lockout.lockout.goals.biome.VisitMushroomBiomeGoal;
 import me.marin.lockout.lockout.goals.breed_animals.*;
@@ -410,6 +411,9 @@ public class DefaultGoalRegister {
                 .build());
         INSTANCE.register(GoalType.OPEN_OMINOUS_VAULT, GetRevaultingAdvancementGoal.class, new GoalRequirements.Builder()
                 .structures(List.of(TRIAL_CHAMBERS))
+                .build());
+        INSTANCE.register(GoalType.FIND_CHERRY_GROVE, VisitCherryGroveBiomeGoal.class, new GoalRequirements.Builder()
+                .biomes(List.of(CHERRY_GROVE))
                 .build());
     }
 

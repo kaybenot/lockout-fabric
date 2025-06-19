@@ -238,4 +238,5 @@ public class GoalType {
     public static final String OBTAIN_64_ARROWS = "OBTAIN_64_ARROWS";
     public static final String OPEN_VAULT = "OPEN_VAULT";
     public static final String OPEN_OMINOUS_VAULT = "OPEN_OMINOUS_VAULT";
+    public static final String FIND_CHERRY_GROVE = "FIND_CHERRY_GROVE";
 }
