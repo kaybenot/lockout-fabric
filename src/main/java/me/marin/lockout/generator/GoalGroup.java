@@ -1,6 +1,7 @@
 package me.marin.lockout.generator;
 
 import lombok.Getter;
+import me.marin.lockout.lockout.GoalType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,8 +158,8 @@ public class GoalGroup {
             TAME_WOLF, PUT_WOLF_ARMOR_ON_WOLF
     ), 1);
     public static final GoalGroup TRIAL_CHAMBERS = new GoalGroup(List.of(
-            KILL_BREEZE_USING_WIND_CHARGE, KILL_SILVERFISH
-    ), 1);
+            KILL_BREEZE_USING_WIND_CHARGE, KILL_SILVERFISH, OPEN_VAULT, OPEN_OMINOUS_VAULT
+    ), 2);
     public static final GoalGroup RAID = new GoalGroup(List.of(
             GET_BAD_OMEN_STATUS_EFFECT, KILL_ALL_RAID_MOBS
     ), 1);

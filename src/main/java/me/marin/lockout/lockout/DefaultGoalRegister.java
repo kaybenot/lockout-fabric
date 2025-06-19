@@ -405,7 +405,12 @@ public class DefaultGoalRegister {
         INSTANCE.register(GoalType.FILL_BUNDLE_WITH_BUNDLES, FillBundleWithBundlesGoal.class, GoalRequirements.NOT_IN_RANDOM_POOL);
 
         INSTANCE.register(GoalType.OBTAIN_64_ARROWS, Obtain64ArrowsGoal.class);
-
+        INSTANCE.register(GoalType.OPEN_VAULT, GetUnderLockAndKeyAdvancementGoal.class, new GoalRequirements.Builder()
+                .structures(List.of(TRIAL_CHAMBERS))
+                .build());
+        INSTANCE.register(GoalType.OPEN_OMINOUS_VAULT, GetRevaultingAdvancementGoal.class, new GoalRequirements.Builder()
+                .structures(List.of(TRIAL_CHAMBERS))
+                .build());
     }
 
 }
