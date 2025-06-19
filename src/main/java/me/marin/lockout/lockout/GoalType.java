@@ -95,6 +95,7 @@ public class GoalType {
     public static final String OBTAIN_64_COLORED_WOOL = "OBTAIN_64_COLORED_WOOL";
     public static final String OBTAIN_64_COLORED_CONCRETE = "OBTAIN_64_COLORED_CONCRETE";
     public static final String OBTAIN_WRITTEN_BOOK = "OBTAIN_WRITTEN_BOOK";
+    public static final String OBTAIN_RESIN_CLUMP = "OBTAIN_RESIN_CLUMP";
     public static final String FILL_INVENTORY_UNIQUE_ITEMS = "FILL_INVENTORY_UNIQUE_ITEMS";
     public static final String GET_THIS_BOAT_HAS_LEGS_ADVANCEMENT = "GET_THIS_BOAT_HAS_LEGS_ADVANCEMENT";
     public static final String USE_BREWING_STAND = "USE_BREWING_STAND";
