@@ -24,7 +24,7 @@ public class GetRevaultingAdvancementGoal extends AdvancementGoal {
 
     @Override
     public String getGoalName() {
-        return "Use an ominous trial key on an ominous vault";
+        return "Use an Ominous Trial Key on an Ominous Vault";
     }
 
     @Override

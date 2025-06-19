@@ -24,7 +24,7 @@ public class GetUnderLockAndKeyAdvancementGoal extends AdvancementGoal {
 
     @Override
     public String getGoalName() {
-        return "Use a trial key on a vault";
+        return "Use a Trial Key on a Vault";
     }
 
     @Override
