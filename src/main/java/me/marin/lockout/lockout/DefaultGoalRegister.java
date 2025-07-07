@@ -415,6 +415,21 @@ public class DefaultGoalRegister {
         INSTANCE.register(GoalType.FIND_CHERRY_GROVE, VisitCherryGroveBiomeGoal.class, new GoalRequirements.Builder()
                 .biomes(List.of(CHERRY_GROVE))
                 .build());
+        INSTANCE.register(GoalType.RETURN_TO_SENDER_ADVANCEMENT, GetReturnToSenderAdvancementGoal.class);
+        INSTANCE.register(GoalType.WAR_PIGS_ADVANCEMENT, GetWarPigsAdvancementGoal.class);
+        INSTANCE.register(GoalType.CRAFTING_A_NEW_LOOK_ADVANCEMENT, GetCraftingANewLookAdvancementGoal.class);
+        INSTANCE.register(GoalType.CRAFTING_A_NEW_LOOK_ADVANCEMENT, GetWhoNeedsRocketsAdvancementGoal.class);
+        INSTANCE.register(GoalType.MINECRAFT_TRIALS_EDITION_ADVANCEMENT, GetMinecraftTrialsEditionAdvancementGoal.class);
+        INSTANCE.register(GoalType.CRAFTER_CRAFTING_CRAFTERS_ADVANCEMENT, GetCrafterCraftingCrafters.class);
+        INSTANCE.register(GoalType.BUKKIT_BUKKIT_ADVANCEMENT, GetBukkitBukkitAdvancementGoal.class,
+                new GoalRequirements.Builder()
+                        .biomes(List.of(SWAMP, MANGROVE_SWAMP))
+                        .build());
+        INSTANCE.register(GoalType.SHEAR_BRILLIANCE_ADVANCEMENT, GetShearBrillianceAdvancementGoal.class,
+                new GoalRequirements.Builder()
+                        .biomes(List.of(BADLANDS, ERODED_BADLANDS, SAVANNA, SAVANNA_PLATEAU, WINDSWEPT_SAVANNA,
+                                WOODED_BADLANDS))
+                        .build());
     }
 
 }

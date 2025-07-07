@@ -1,0 +1,34 @@
+package me.marin.lockout.lockout.goals.advancement;
+
+import me.marin.lockout.lockout.interfaces.AdvancementGoal;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
+
+import java.util.List;
+
+public class GetReturnToSenderAdvancementGoal extends AdvancementGoal {
+
+    private static final Item ITEM = Items.FIRE_CHARGE;
+    private static final List<Identifier> ADVANCEMENTS = List.of(Identifier.of("minecraft", "nether/return_to_sender"));
+
+    public GetReturnToSenderAdvancementGoal(String id, String data) {
+        super(id, data);
+    }
+
+    @Override
+    public List<Identifier> getAdvancements() {
+        return ADVANCEMENTS;
+    }
+
+    @Override
+    public String getGoalName() {
+        return "Destroy a Ghast With a Fireball";
+    }
+
+    @Override
+    public ItemStack getTextureItemStack() {
+        return ITEM.getDefaultStack();
+    }
+}

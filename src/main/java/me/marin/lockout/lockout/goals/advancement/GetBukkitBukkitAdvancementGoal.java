@@ -1,0 +1,34 @@
+package me.marin.lockout.lockout.goals.advancement;
+
+import me.marin.lockout.lockout.interfaces.AdvancementGoal;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
+
+import java.util.List;
+
+public class GetBukkitBukkitAdvancementGoal extends AdvancementGoal {
+
+    private static final Item ITEM = Items.TADPOLE_BUCKET;
+    private static final List<Identifier> ADVANCEMENTS = List.of(Identifier.of("minecraft", "husbandry/tadpole_in_a_bucket"));
+
+    public GetBukkitBukkitAdvancementGoal(String id, String data) {
+        super(id, data);
+    }
+
+    @Override
+    public List<Identifier> getAdvancements() {
+        return ADVANCEMENTS;
+    }
+
+    @Override
+    public String getGoalName() {
+        return "Catch a Tadpole in a Bucket";
+    }
+
+    @Override
+    public ItemStack getTextureItemStack() {
+        return ITEM.getDefaultStack();
+    }
+}
