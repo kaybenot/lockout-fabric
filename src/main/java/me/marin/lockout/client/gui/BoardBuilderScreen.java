@@ -239,7 +239,6 @@ public class BoardBuilderScreen extends Screen {
         }
 
         String finalBoardName = boardName;
-        // TODO: Fix board builder
         Text openBoardFile = Text.literal("[Open file]").styled(style ->
                 style.withClickEvent(new ClickEvent.OpenFile(BoardBuilderIO.INSTANCE.getBoardPath(finalBoardName).toFile().getAbsolutePath()))
                         .withHoverEvent(new HoverEvent.ShowText(Text.of("Click to open board file.")))
@@ -269,7 +268,6 @@ public class BoardBuilderScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
 
         drawCenterBoard(context, mouseX, mouseY);
