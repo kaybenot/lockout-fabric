@@ -418,7 +418,7 @@ public class DefaultGoalRegister {
         INSTANCE.register(GoalType.RETURN_TO_SENDER_ADVANCEMENT, GetReturnToSenderAdvancementGoal.class);
         INSTANCE.register(GoalType.WAR_PIGS_ADVANCEMENT, GetWarPigsAdvancementGoal.class);
         INSTANCE.register(GoalType.CRAFTING_A_NEW_LOOK_ADVANCEMENT, GetCraftingANewLookAdvancementGoal.class);
-        INSTANCE.register(GoalType.CRAFTING_A_NEW_LOOK_ADVANCEMENT, GetWhoNeedsRocketsAdvancementGoal.class);
+        INSTANCE.register(GoalType.WHO_NEEDS_ROCKETS_ADVANCEMENT, GetWhoNeedsRocketsAdvancementGoal.class);
         INSTANCE.register(GoalType.MINECRAFT_TRIALS_EDITION_ADVANCEMENT, GetMinecraftTrialsEditionAdvancementGoal.class);
         INSTANCE.register(GoalType.CRAFTER_CRAFTING_CRAFTERS_ADVANCEMENT, GetCrafterCraftingCrafters.class);
         INSTANCE.register(GoalType.BUKKIT_BUKKIT_ADVANCEMENT, GetBukkitBukkitAdvancementGoal.class,
